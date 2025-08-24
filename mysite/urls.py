@@ -21,6 +21,5 @@ from django.shortcuts import render
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('webpage.urls')),
-    path('/home', lambda request: render(request, 'index.html'), name='home'),
+    path('', lambda request: render(request, 'index.html'), name='home'),
 ]
