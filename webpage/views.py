@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def random_quotes(request):
+    return render(request, "random_quotes.html")
+
+def index(request):
+    return render(request, "index.html")

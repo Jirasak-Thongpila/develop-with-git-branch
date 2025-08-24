@@ -1,549 +1,61 @@
 <!DOCTYPE html>
-<html lang="th">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>สุ่มคำคมกวนตีน</title>
-    <meta
-      name="description"
-      content="เว็บสุ่มคำคมกึ่งจริงกึ่งกวน แชร์ได้ คัดลอกได้ เติมคำคมเองได้"
-    />
-    <meta property="og:title" content="สุ่มคำคมกวนตีน" />
-    <meta
-      property="og:description"
-      content="กดปุ๊บ ได้ปั๊บ ขำปุ๊กปิ๊ก แชร์ได้ด้วย!"
-    />
-    <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#111" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;800&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --bg: #0b0b0b;
-        --card: #121212;
-        --ink: #eee;
-        --muted: #b7b7b7;
-        --accent: #d81d49;
-        --accent-2: #ff4d6d;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        margin: 0;
-        background: radial-gradient(
-            1200px 600px at 80% -10%,
-            rgba(216, 29, 73, 0.15),
-            transparent 60%
-          ),
-          radial-gradient(
-            900px 500px at 10% 110%,
-            rgba(255, 77, 109, 0.12),
-            transparent 60%
-          ),
-          var(--bg);
-        color: var(--ink);
-        font-family: "Kanit", system-ui, -apple-system, Segoe UI, Roboto,
-          sans-serif;
-        display: grid;
-        place-items: center;
-        padding: 24px;
-      }
-      .wrap {
-        width: min(900px, 96vw);
-      }
-      header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 18px;
-      }
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .logo {
-        width: 42px;
-        height: 42px;
-        display: grid;
-        place-items: center;
-        border-radius: 12px;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        box-shadow: 0 10px 30px rgba(216, 29, 73, 0.35);
-      }
-      .logo span {
-        font-weight: 800;
-        font-size: 20px;
-        color: #fff;
-      }
-      .title {
-        line-height: 1;
-      }
-      .title h1 {
-        margin: 0;
-        font-size: clamp(22px, 3vw, 28px);
-      }
-      .title p {
-        margin: 2px 0 0;
-        color: var(--muted);
-        font-size: 14px;
-      }
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Quotes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      color: #fff;
+    }
 
-      .card {
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.02),
-          rgba(255, 255, 255, 0)
-        );
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 20px;
-        padding: 28px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-      }
-      blockquote {
-        margin: 0;
-        font-size: clamp(22px, 4vw, 36px);
-        font-weight: 600;
-        letter-spacing: 0.2px;
-      }
-      blockquote .cursor {
-        display: inline-block;
-        width: 10px;
-        background: var(--ink);
-        animation: blink 0.9s steps(1) infinite;
-        vertical-align: baseline;
-      }
-      @keyframes blink {
-        50% {
-          opacity: 0;
-        }
-      }
+    .container {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 40px 60px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
 
-      .controls {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 22px;
-      }
-      button,
-      .ghost {
-        appearance: none;
-        border: none;
-        cursor: pointer;
-        border-radius: 14px;
-        padding: 12px 16px;
-        font-weight: 600;
-        color: #fff;
-        transition: transform 0.08s ease, box-shadow 0.2s ease,
-          background 0.2s ease;
-        outline: none;
-      }
-      .primary {
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        box-shadow: 0 10px 30px rgba(216, 29, 73, 0.35);
-      }
-      .primary:hover {
-        transform: translateY(-1px);
-      }
-      .ghost {
-        background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: var(--ink);
-      }
-      .ghost:hover {
-        background: rgba(255, 255, 255, 0.04);
-      }
-      .tiny {
-        font-size: 12px;
-        color: var(--muted);
-      }
+    h1 {
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+    }
 
-      details {
-        margin-top: 18px;
-      }
-      summary {
-        cursor: pointer;
-        list-style: none;
-        color: var(--muted);
-      }
-      summary::-webkit-details-marker {
-        display: none;
-      }
-      .adder {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 10px;
-        margin-top: 10px;
-      }
-      textarea {
-        width: 100%;
-        min-height: 70px;
-        border-radius: 12px;
-        background: #0e0e0e;
-        color: var(--ink);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 12px;
-        font-family: inherit;
-      }
-      .list {
-        margin-top: 12px;
-        display: flex;
-        gap: 6px;
-        flex-wrap: wrap;
-      }
-      .tag {
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 999px;
-        padding: 6px 10px;
-        font-size: 12px;
-        color: var(--muted);
-      }
+    a {
+      display: inline-block;
+      padding: 15px 40px;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+      border: 2px solid #00c3ff;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #00c3ff, #7700ff);
+      transition: 0.4s ease;
+      box-shadow: 0 5px 20px rgba(0, 195, 255, 0.4);
+    }
 
-      footer {
-        margin-top: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-      }
-      .kbd {
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-bottom-width: 2px;
-        border-radius: 8px;
-        padding: 2px 6px;
-        font-size: 12px;
-        color: var(--muted);
-      }
-
-      .toast {
-        position: fixed;
-        bottom: 18px;
-        left: 50%;
-        transform: translateX(-50%) translateY(150%);
-        background: #161616;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #fff;
-        padding: 10px 14px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        transition: transform 0.25s ease;
-      }
-      .toast.show {
-        transform: translateX(-50%) translateY(0);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <header>
-        <div class="brand">
-          <div class="logo"><span>คค</span></div>
-          <div class="title">
-            <h1>สุ่มคำคมกวนตีน</h1>
-            <p>กดปุ๊บ ได้ปั๊บ ขำปุ๊กปิ๊ก | ธีมดำ-แดงเท่ๆ ของมันต้องมี</p>
-          </div>
-        </div>
-      </header>
-
-      <main class="card">
-        <blockquote id="quote">
-          กดปุ่มข้างล่างเพื่อเริ่มสุ่ม <span class="cursor">&nbsp;</span>
-        </blockquote>
-        <div class="controls">
-          <button id="btn-random" class="primary">สุ่มอีก!</button>
-          <button id="btn-copy" class="ghost">คัดลอก</button>
-          <button id="btn-share" class="ghost">แชร์</button>
-        </div>
-
-        <details>
-          <summary>เพิ่มคำคมของฉันเอง</summary>
-          <div class="adder">
-            <textarea
-              id="custom-input"
-              placeholder="พิมพ์คำคมกวนๆ ของคุณที่นี่"
-            ></textarea>
-            <button id="btn-add" class="primary">เพิ่ม</button>
-          </div>
-          <div class="list" id="custom-list"></div>
-          <p class="tiny">บันทึกไว้ในเครื่องของคุณเท่านั้น (localStorage)</p>
-        </details>
-
-        <footer>
-          <span class="tiny"
-            >กด <span class="kbd">Space</span> เพื่อสุ่มได้เหมือนกัน</span
-          >
-          <span class="tiny">© ทำด้วยความกวนใจที่พอดี ๆ</span>
-        </footer>
-      </main>
-    </div>
-
-    <div id="toast" class="toast">คัดลอกแล้ว!</div>
-
-    <script>
-      // ====== คลังคำคมเริ่มต้น ======
-      const defaultQuotes = [
-        "รักแท้แพ้ระยะทาง แต่ถ้ามีวาร์ปก็ไม่กลัว",
-        "อย่าทิ้งงานไว้พรุ่งนี้ ถ้าเลื่อนไปปีหน้าจะชิลกว่า",
-        "เงินซื้อความสุขไม่ได้ แต่ซื้อกาแฟได้ ซึ่งก็แทบจะเหมือนกัน",
-        "เป้าหมายปีนี้: ไม่ตั้งเป้า จะได้ไม่พลาด",
-        "วันนี้จะเริ่มลดน้ำหนัก… หลังจากชานมแก้วนี้",
-        "นอนคือวิถีแห่งเซียน ตื่นคือวิบากกรรม",
-        "ความรักก็เหมือนเดดไลน์ มาช้าแต่มาชัวร์…มั้ง",
-        "โลกไม่ยุติธรรม แต่ร้านลดราคาอยู่มุมซ้าย",
-        "คนแพ้ก็แค่คนที่ยังไม่กดปุ่ม Retry",
-        "บางทีก็อยากเป็นจุลินทรีย์ จะได้แยกย้ายอย่างสงบ",
-        "อุปสรรคคือเครื่องปรุงชีวิต และฉันแพ้ผงชูรส",
-        "เรียนออนไลน์เหมือนรักทางไกล กล้องดับ ใจก็ดับ",
-        "เชื่อในตัวเอง แล้วค่อยเชื่อ Google",
-        "ฝันใหญ่ไว้ก่อน ง่วงค่อยว่ากัน",
-        "เหนื่อยก็พัก รักก็พอ สอบก็สุดวิสัย",
-        "ความรักก็เหมือน Wi-Fi อยู่ใกล้ก็แรง อยู่ไกลก็หลุด",
-        "คนที่ใช่ไม่ต้องวิ่งตาม แค่มีเน็ตแรงก็พอ",
-        "ความรักไม่ใช่เกม แต่บางครั้งก็ต้องกด Retry",
-        "รักแท้คืออะไร... ไม่รู้ แต่รักแฟนชานมไข่มุกแน่นอน",
-        "ความรักเหมือนโค้ดบั๊ก รู้ว่าพังแต่ก็ยังไม่เลิกใช้",
-        "รักคือการบ้านที่ส่งทันบ้างไม่ทันบ้าง แต่ก็ต้องทำอยู่ดี",
-        "ความรักไม่ใช่แรม แต่ก็เต็มได้เหมือนกัน",
-        "อยากเป็น Error ในใจเธอ จะได้เจอฉันทุกครั้ง",
-        "หัวใจไม่ใช่ SSD แต่ก็เก็บเธอไว้ตลอด",
-        "รักนะ แต่บางทีก็อยากกด Delete",
-        "บางคนก็เหมือน Pop-up โผล่มาไม่ทันตั้งตัวแต่ก็น่ารักดี",
-        "ความรักก็เหมือนโปรเจกต์ ยังไม่เสร็จแต่ก็ทิ้งไม่ได้",
-        "ถ้ารักกันจริงก็อย่าแค่ Save Draft",
-        "โลกนี้ไม่แฟร์ แต่เธอแฟร์กับใครรึยัง",
-        "รักเธอเหมือน Ping ติดลบ ไม่รู้จะมองเห็นมั้ยแต่ส่งไปแล้ว",
-        "ความรักคือบั๊ก แต่หัวใจคือ Debugger",
-        "รักก็เหมือน Cache เก็บไว้ก็อุ่นใจ แต่ล้างทีคือลืมหมด",
-        "อย่าทำเป็นเหมือน Notification ที่ดังแต่ไม่มีสาระ",
-        "รักเธอไม่ใช่ If-Else เพราะไม่มีเงื่อนไข",
-        "ถ้ารักคือ Function ก็อยาก Return เธอเสมอ",
-        "หัวใจไม่ใช่ Git แต่ก็ Commit ให้เธอได้",
-        "รักคือ Loop ที่ไม่อยาก Break",
-        "อยากให้เธอเป็น Main Function ในชีวิต",
-        "ตั้งใจเรียนเหมือนตั้งนาฬิกาปลุก รู้ทั้งรู้ว่าไม่ตื่น",
-        "การบ้านก็เหมือนความรัก ถ้าไม่ทำเดี๋ยวก็เจ็บ",
-        "ความรู้ไม่เข้า แต่กาแฟเข้าเต็ม ๆ",
-        "เกรดไม่ใช่ทุกอย่าง แต่ไม่มีเกรดก็แทบไม่มีอะไรเลย",
-        "ห้องเรียนก็เหมือนสนามรบ ครูคือบอสใหญ่",
-        "สอบเสร็จทีไร เหมือน Uninstall ความรู้หมดทุกครั้ง",
-        "เป้าหมายปีนี้: ไม่ตั้งเป้า จะได้ไม่พลาด",
-        "ความรู้เข้าหัวเหมือนน้ำนองพื้น เดี๋ยวก็แห้ง",
-        "Homework ก็คือ Heartwork ที่ครูไม่เคยเข้าใจ",
-        "อยากเป็นนักวิจัย เพื่อวิจัยว่าทำไมยังไม่จบสักที",
-        "หนังสือหนาเท่าอิฐ แต่ใจบางเหมือนกระดาษ",
-        "การบ้านไม่เคยหายไปไหน มันแค่ซ่อนอยู่ในตารางเรียน",
-        "เรียนคือการลงทุน แต่บางทีก็เหมือนลงทุนในหุ้นขาลง",
-        "ความรู้น้อยยังพอทน ความง่วงมากนี่สิทนยาก",
-        "ครูบอกไม่เข้าใจให้ถาม แต่ถามแล้วก็ไม่เข้าใจอยู่ดี",
-        "นั่งเรียนแต่ใจไปพักร้อนแล้ว",
-        "วิชาการไม่ทำให้โตทันที แต่ทำให้ตีนกาโผล่เร็วขึ้น",
-        "ความรู้ยากจะเข้าใจ เหมือนบั๊กที่ไม่มีใครเจอ",
-        "เรียนไปก็ไม่รู้จะได้ใช้ แต่ไม่เรียนก็ใช้ชีวิตยาก",
-        "สมการชีวิต: นอน + กาแฟ = พออยู่รอด",
-        "อยากสำเร็จแบบไว ๆ ก็ต้องกด Ctrl+C, Ctrl+V",
-        "รักคือบั๊กที่แก้ไม่ออก แต่ก็ยังอยากให้มีในโค้ดชีวิต",
-        "Programmer ไม่ใช่พระเจ้า แต่ Debug เสร็จก็เกือบ ๆ แล้ว",
-        "บางครั้งชีวิตก็เหมือน Error 404: ความสุข Not Found",
-        "อยากเป็นไฟล์ .zip จะได้เบาลงบ้าง",
-        "โค้ดเหมือนความรัก ไม่ใช่ว่าจะ Compile ผ่านทุกครั้ง",
-        "ถ้าใจไม่สู้ ให้ลอง Run ใหม่",
-        "บางวันเหมือนโค้ด Infinite Loop ไม่มีทางออก",
-        "ความสุขคือการกด Save ก่อนเครื่องดับ",
-        "ถ้าชีวิตคือ Git อยาก Commit ความสุขทุกวัน",
-        "การเขียนโค้ดคือการคุยกับอนาคต",
-        "บั๊กไม่เคยหายไป มันแค่ซ่อนอยู่",
-        "Coding ก็คือการฝึกสมาธิ เวลาบั๊กคือการฝึกสติ",
-        "โค้ดที่ดีไม่ใช่โค้ดที่ยาว แต่เป็นโค้ดที่ไม่มีใครด่า",
-        "เวลา Debug เหมือนการนั่งสมาธิ จ้องไปจ้องมาหลับ",
-        "ถ้าโค้ดพัง ให้โทษ Coffee ก่อนเป็นอันดับแรก",
-        "การเขียนโค้ดก็เหมือนการจีบ ต้องลองผิดลองถูก",
-        "ความสุขคือการเห็นโค้ด Run ผ่านโดยไม่ Error",
-        "Programmer ไม่มีวันตาย แค่เข้าสู่ Sleep Mode",
-        "Keyboard คือเพื่อนสนิท",
-        "อยากเขียนโค้ดแบบ Clean แต่ห้องนี่ยังไม่ Clean เลย",
-        "เวลาเขียนโค้ดแล้ว Flow เหมือนเจอรักแท้",
-        "Syntax Error คือความรักที่ไม่ตรงกัน",
-        "ถ้าชีวิตคือ Array เธอก็คือ Index ที่ตามหา",
-        "เงินเดือนก็เหมือนมายากล หายไปทุกสิ้นเดือน",
-        "โลกไม่ยุติธรรม แต่ร้านลดราคาอยู่มุมซ้าย",
-        "บางทีก็อยากเป็นจุลินทรีย์ จะได้แยกย้ายอย่างสงบ",
-        "เชื่อในตัวเอง แล้วค่อยเชื่อ Google",
-        "ฝันใหญ่ไว้ก่อน ง่วงค่อยว่ากัน",
-        "เวลาคือทรัพยากรที่หายไปฟรี ๆ ทุกวัน",
-        "ชีวิตก็เหมือนกาแฟ บางวันเข้ม บางวันจืด",
-        "ปัญหาก็เหมือนโฆษณา ข้ามได้ก็ดี",
-        "อยากเป็นคนรวย แต่ตู้เย็นยังโล่งอยู่",
-        "ความสุขคือการได้กด Snooze แล้วนอนต่อ",
-        "ความทุกข์ไม่ได้หายไป มันแค่แปลงร่างเป็นบิลค่าไฟ",
-        "ชีวิตคนเราก็เหมือนซีรีส์ บางตอนสนุก บางตอนน่าเบื่อ",
-        "อยากได้ชีวิตที่ดี แต่ไม่อยากลุกจากเตียง",
-        "ปัญหาบางอย่างก็เหมือนขยะ กวาดไปไว้ใต้พรมก่อน",
-        "การใช้ชีวิตคือการเล่นเกม Free Trial",
-        "ทุกวันนี้ไม่ได้หิว แค่เบื่อเฉย ๆ เลยกิน",
-        "ความสุขคือการได้กด Add to Cart แล้วไม่คิดมาก",
-        "ชีวิตเหมือน Playlist มีทั้งเพลงเศร้า เพลงสนุก",
-        "อยากมีชีวิตเรียบง่าย แต่ Wi-Fi ต้องแรง",
-        "ปัญหาคือ Tutorial ของชีวิต",
-        "ความสุขง่าย ๆ คือการได้หัวเราะกับเรื่องโง่ ๆ",
-        "ชีวิตไม่ใช่เกม แต่ก็มีให้กด Restart บ่อย ๆ",
-      ];
-
-      // ====== การจัดการคำคมที่ผู้ใช้เพิ่ม ======
-      const LS_KEY = "meme-quotes-custom";
-      const loadCustomQuotes = () => {
-        try {
-          return JSON.parse(localStorage.getItem(LS_KEY) || "[]");
-        } catch {
-          return [];
-        }
-      };
-      const saveCustomQuotes = (arr) =>
-        localStorage.setItem(LS_KEY, JSON.stringify(arr));
-
-      // ====== DOM ======
-      const quoteEl = document.getElementById("quote");
-      const btnRandom = document.getElementById("btn-random");
-      const btnCopy = document.getElementById("btn-copy");
-      const btnShare = document.getElementById("btn-share");
-      const customInput = document.getElementById("custom-input");
-      const btnAdd = document.getElementById("btn-add");
-      const customList = document.getElementById("custom-list");
-      const toast = document.getElementById("toast");
-
-      let current = "";
-
-      function getAllQuotes() {
-        return [...defaultQuotes, ...loadCustomQuotes()];
-      }
-
-      function randomQuote() {
-        const all = getAllQuotes();
-        if (!all.length) return "ยังไม่มีคำคมเลย ลองเพิ่มสักอันสิ";
-        let pick;
-        do {
-          pick = all[Math.floor(Math.random() * all.length)];
-        } while (pick === current && all.length > 1);
-        current = pick;
-        typeTo(quoteEl, pick);
-        return pick;
-      }
-
-      // ====== เอฟเฟกต์พิมพ์ทีละตัว ======
-      let typerId;
-      function typeTo(el, text) {
-        clearInterval(typerId);
-        el.innerHTML = "";
-        const span = document.createElement("span");
-        el.appendChild(span);
-        const cursor = document.createElement("span");
-        cursor.className = "cursor";
-        cursor.innerHTML = "&nbsp;";
-        el.appendChild(cursor);
-        let i = 0;
-        typerId = setInterval(() => {
-          span.textContent = text.slice(0, ++i);
-          if (i >= text.length) {
-            clearInterval(typerId);
-          }
-        }, 18);
-      }
-
-      // ====== ปุ่ม ======
-      btnRandom.addEventListener("click", randomQuote);
-
-      btnCopy.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(
-            current || quoteEl.textContent.trim()
-          );
-          showToast("คัดลอกแล้ว!");
-        } catch (e) {
-          showToast("คัดลอกไม่สำเร็จ");
-        }
-      });
-
-      btnShare.addEventListener("click", async () => {
-        const text = current || quoteEl.textContent.trim();
-        if (navigator.share) {
-          try {
-            await navigator.share({ title: "สุ่มคำคมกวนตีน", text });
-          } catch {
-            /* user canceled */
-          }
-        } else {
-          await navigator.clipboard.writeText(text);
-          showToast("คัดลอกข้อความไว้สำหรับแชร์แล้ว");
-        }
-      });
-
-      // เพิ่มคำคมของผู้ใช้
-      function renderCustomList() {
-        const arr = loadCustomQuotes();
-        customList.innerHTML = "";
-        arr.forEach((q, idx) => {
-          const el = document.createElement("span");
-          el.className = "tag";
-          el.textContent =
-            '"' + q.slice(0, 40) + (q.length > 40 ? "…" : "") + '"';
-          el.title = q;
-          el.addEventListener("click", () => {
-            current = q;
-            typeTo(quoteEl, q);
-          });
-          // ลบด้วยคลิกขวา
-          el.addEventListener("contextmenu", (e) => {
-            e.preventDefault();
-            const c = loadCustomQuotes();
-            c.splice(idx, 1);
-            saveCustomQuotes(c);
-            renderCustomList();
-          });
-          customList.appendChild(el);
-        });
-      }
-
-      btnAdd.addEventListener("click", () => {
-        const val = (customInput.value || "").trim();
-        if (!val) return;
-        const arr = loadCustomQuotes();
-        arr.unshift(val);
-        saveCustomQuotes(arr);
-        customInput.value = "";
-        renderCustomList();
-        showToast("เพิ่มคำคมแล้ว");
-      });
-
-      // กด Space เพื่อสุ่ม
-      window.addEventListener("keydown", (e) => {
-        if (
-          e.code === "Space" &&
-          !/INPUT|TEXTAREA/.test(document.activeElement.tagName)
-        ) {
-          e.preventDefault();
-          randomQuote();
-        }
-      });
-
-      function showToast(msg) {
-        toast.textContent = msg;
-        toast.classList.add("show");
-        clearTimeout(showToast.tid);
-        showToast.tid = setTimeout(() => toast.classList.remove("show"), 1500);
-      }
-
-      // เริ่มต้นสุ่มหนึ่งครั้งเพื่อโชว์ความสามารถ
-      randomQuote();
-      renderCustomList();
-    </script>
-  </body>
+    a:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(0, 195, 255, 0.8);
+      text-shadow: 0 0 8px #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>✨ Welcome ✨</h1>
+    <a href="{% url 'random_quotes' %}">Get Random Quotes</a>
+  </div>
+</body>
 </html>
